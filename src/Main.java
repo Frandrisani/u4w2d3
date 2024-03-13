@@ -34,10 +34,10 @@ public class Main {
         orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 1), LocalDate.of(2021, 3, 5), List.of(products.get(0)), customers.get(1)));
         orders.add(new Order( "COMPLETED", LocalDate.of(2021, 2, 15), LocalDate.of(2021, 2, 20), List.of(products.get(1)), customers.get(2)));
         orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(2)), customers.get(0)));
-        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(2)), customers.get(3)));
+        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(3)), customers.get(3)));
         orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(2)), customers.get(4)));
-        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(2)), customers.get(5)));
-        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(2)), customers.get(2)));
+        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(6)), customers.get(5)));
+        orders.add(new Order( "COMPLETED", LocalDate.of(2021, 3, 20), LocalDate.of(2021, 3, 25), List.of(products.get(5)), customers.get(2)));
 
 
         Scanner scanner = new Scanner(System.in);
@@ -53,11 +53,16 @@ public class Main {
             break;
             case 2:
                 System.out.println("Esercizio 2");
-                List<Order> categoriaBaby = orders.stream().filter(element -> element.getProducts().get(0).getCategory().equals("Baby")).toList();
+                List<Order> categoriaBaby = orders.stream().filter(element -> element.getProducts().stream()
+                        .anyMatch(product -> product.getCategory().equals("Baby"))).toList();
                 System.out.println("I prodotti per categoria Baby sono: "+categoriaBaby.size() + " e sono: "+categoriaBaby);
                 break;
             case 3:
                 System.out.println("Esercizio 3");
+                List<Product> boys = products.stream().filter(element -> element.getCategory().equals("Boys")).toList();
+                System.out.println("I prodotti per categoria Boys sono: "+boys.size() + " e prima dello sconto i prezzi sono " + boys.stream().map(Product::getPrice).toList());
+                boys.stream().forEach(element -> element.setPrice(element.getPrice() - ((element.getPrice() * 10) / 100)));
+                System.out.println("I prodotti per categoria Boys sono: "+boys.size() + " e dopo lo sconto i prezzi sono " + boys.stream().map(Product::getPrice).toList());
                 break;
             case 4:
                 System.out.println("Esercizio 4");
