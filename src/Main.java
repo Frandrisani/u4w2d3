@@ -66,6 +66,11 @@ public class Main {
                 break;
             case 4:
                 System.out.println("Esercizio 4");
+                LocalDate start = LocalDate.of(2021, 3, 1);
+                LocalDate end = LocalDate.of(2021, 3, 31);
+                List <Order> ordersBetween = orders.stream().filter(element -> element.getDate().isBefore(end) && element.getDate().isAfter(start)).filter(element -> element.getCustomer().getTier() == 2).toList();
+                System.out.println("I prodotti ordinati tra il " + start + " e il " + end + " sono: "+ordersBetween.size() + " e sono: "+ordersBetween);
+
                 break;
             default:
                 System.out.println("Scelta non valida");
